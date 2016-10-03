@@ -52,7 +52,8 @@ Page {
                 resolution: "3264x1840"
                 onImageSaved: {
                     console.log("image saved");
-                    imagePath = cCamera.imageCapture.capturedImagePath;
+//                    imagePath = cCamera.imageCapture.capturedImagePath;
+                    imagePath = "testImg.jpg";
                     console.log(imagePath);
                     pageStack.push(Qt.resolvedUrl("CoinRecPage.qml"));
                 }
