@@ -18,7 +18,7 @@ CXXFLAGS      = -pipe -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -f
 INCPATH       = -I/usr/share/qt5/mkspecs/linux-g++ -I../harbour-coincounter -I../harbour-coincounter/ocv-inst-486/include -I/usr/include/sailfishapp -I/usr/include/mdeclarativecache5 -I/usr/include/qt5 -I/usr/include/qt5/QtQuick -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtQml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I. -I.
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/usr/share/harbour-coincounter/lib
-LIBS          = $(SUBLIBS) -L/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/ -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs -pie -rdynamic -L/usr/lib/ -lsailfishapp -lmdeclarativecache5 -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGLESv2 -lpthread 
+LIBS          = $(SUBLIBS) -L/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/ -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio -pie -rdynamic -L/usr/lib/ -lsailfishapp -lmdeclarativecache5 -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGLESv2 -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/qt5/bin/qmake
@@ -928,7 +928,11 @@ harbour-coincounter.o: ../harbour-coincounter/src/harbour-coincounter.cpp /usr/i
 		/usr/include/qt5/QtQuick/qsgtextureprovider.h \
 		/usr/include/qt5/QtQuick/qsgvertexcolormaterial.h \
 		/usr/include/qt5/QtQuick/qtquickversion.h \
-		/usr/include/sailfishapp/sailfishapp.h
+		/usr/include/sailfishapp/sailfishapp.h \
+		../harbour-coincounter/ccounter.h \
+		/usr/include/qt5/QtCore/QAbstractItemModel \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/QStandardPaths
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o harbour-coincounter.o ../harbour-coincounter/src/harbour-coincounter.cpp
 
 ccounter.o: ../harbour-coincounter/ccounter.cpp ../harbour-coincounter/ccounter.h \
@@ -1153,13 +1157,31 @@ ccounter.o: ../harbour-coincounter/ccounter.cpp ../harbour-coincounter/ccounter.
 		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/ring_buffer.hpp \
 		../harbour-coincounter/ocv-inst-486/include/opencv2/core/core.hpp \
 		../harbour-coincounter/ocv-inst-486/include/opencv2/imgproc/imgproc.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/highgui/highgui.hpp
+		../harbour-coincounter/ocv-inst-486/include/opencv2/highgui/highgui.hpp \
+		/usr/include/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ccounter.o ../harbour-coincounter/ccounter.cpp
 
 moc_ccounter.o: moc_ccounter.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ccounter.o moc_ccounter.cpp
 
 ####### Install
+
+install_lib: first FORCE
+	@test -d $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib || mkdir -p $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib
+	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_core.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_imgproc.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_highgui.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_imgcodecs.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_videoio.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+
+uninstall_lib: FORCE
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_videoio.so.3.1
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_imgcodecs.so.3.1
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_highgui.so.3.1
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_imgproc.so.3.1
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_core.so.3.1
+	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/ 
+
 
 install_qm: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/harbour-coincounter/translations || mkdir -p $(INSTALL_ROOT)/usr/share/harbour-coincounter/translations
@@ -1234,9 +1256,9 @@ uninstall_icon256x256: FORCE
 	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/icons/hicolor/256x256/apps/ 
 
 
-install:  install_qm install_qml install_target install_desktop install_icon86x86 install_icon108x108 install_icon128x128 install_icon256x256  FORCE
+install:  install_lib install_qm install_qml install_target install_desktop install_icon86x86 install_icon108x108 install_icon128x128 install_icon256x256  FORCE
 
-uninstall: uninstall_qm uninstall_qml uninstall_target uninstall_desktop uninstall_icon86x86 uninstall_icon108x108 uninstall_icon128x128 uninstall_icon256x256   FORCE
+uninstall: uninstall_lib uninstall_qm uninstall_qml uninstall_target uninstall_desktop uninstall_icon86x86 uninstall_icon108x108 uninstall_icon128x128 uninstall_icon256x256   FORCE
 
 FORCE:
 

@@ -23,7 +23,7 @@ OTHER_FILES += qml/harbour-coincounter.qml \
     rpm/harbour-coincounter.spec \
     rpm/harbour-coincounter.yaml \
     translations/*.ts \
-    harbour-coincounter.desktop
+    harbour-coincounter.desktop \
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
 
@@ -60,4 +60,14 @@ INCLUDEPATH += $$OCV_PATH/include
 LIBS += -L$$PWD/$$OCV_PATH/lib/ -lopencv_core \
 -lopencv_imgproc \
 -lopencv_highgui \
--lopencv_imgcodecs
+-lopencv_imgcodecs \
+-lopencv_videoio
+
+lib.files += $$OCV_PATH/lib/libopencv_core.so.3.1 \
+$$OCV_PATH/lib/libopencv_imgproc.so.3.1 \
+$$OCV_PATH/lib/libopencv_highgui.so.3.1 \
+$$OCV_PATH/lib/libopencv_imgcodecs.so.3.1 \
+$$OCV_PATH/lib/libopencv_videoio.so.3.1
+
+lib.path = /usr/share/harbour-coincounter/lib
+INSTALLS += lib

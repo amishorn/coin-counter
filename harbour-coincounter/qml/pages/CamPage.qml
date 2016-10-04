@@ -51,11 +51,8 @@ Page {
             imageCapture {
                 resolution: "3264x1840"
                 onImageSaved: {
-                    console.log("image saved");
-//                    imagePath = cCamera.imageCapture.capturedImagePath;
-                    imagePath = "testImg.jpg";
-                    console.log(imagePath);
-                    pageStack.push(Qt.resolvedUrl("CoinRecPage.qml"));
+                    console.log("image Saved called");
+//                    postCapture();
                 }
                 onCaptureFailed: {
                     console.error("error: " + cCamera.imageCapture.errorString);
@@ -93,9 +90,23 @@ Page {
                 console.log("capturing");
 //                imagePath = ccounter.getNewImgURI();
 //                cCamera.imageCapture.captureToLocation(imagePath);
-                cCamera.imageCapture.capture();
+
+
+                postCapture();
+//                cCamera.imageCapture.capture();
             }
         }
+
+    }
+
+    function postCapture(){
+        console.log("image saved");
+//        imagePath = cCamera.imageCapture.capturedImagePath;
+        imagePath = "/home/nemo/Pictures/testImg.jpg";
+
+        console.log(imagePath);
+        var recPage = pageStack.push(Qt.resolvedUrl("CoinRecPage.qml"));
+        recPage.imagePath = imagePath;
     }
 }
 

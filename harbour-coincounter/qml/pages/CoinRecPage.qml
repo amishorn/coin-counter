@@ -34,23 +34,27 @@ import Sailfish.Silica 1.0
 
 Page {
     id: coinRecPage
+
+    property string imagePath: ""
+
     Image {
         id: crPic
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
-        source: CamPage.imagePath // "///home/nemo/Pictures/test.jpg"
+        source: imagePath
 
-        Connections {
-            target: ccounter
-            onImgProcessed: crPic.update();
-        }
+//        Connections {
+//            target: ccounter
+//            onImgProcessed: crPic.source = imagePath;
+//            onImgProcessed: crPic.update();
+//        }
 
         Button {
             id: crBut
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 10
 
-            onClicked: ccounter.findCircles(CamPage.imagePath);
+            onClicked: imagePath = ccounter.findCircles(imagePath);
         }
     }
 }

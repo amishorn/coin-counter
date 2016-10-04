@@ -33,6 +33,7 @@
 #endif
 
 #include <sailfishapp.h>
+#include <ccounter.h>
 
 
 int main(int argc, char *argv[])
@@ -46,6 +47,17 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    return SailfishApp::main(argc, argv);
+    // return SailfishApp::main(argc, argv);
+
+    CCounter ccounter;
+
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    QScopedPointer<QQuickView> view(SailfishApp::createView());
+
+    view->rootContext()->setContextProperty("ccounter", &ccounter);
+    view->setSource(SailfishApp::pathTo("qml/harbour-coincounter.qml"));
+    view->show();
+
+    return app->exec();
 }
 
