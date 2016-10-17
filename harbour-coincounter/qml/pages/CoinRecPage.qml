@@ -37,24 +37,27 @@ Page {
 
     property string imagePath: ""
 
+    on_NavigationChanged: ccounter.deleteImg(imagePath);
+
     Image {
         id: crPic
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
         source: imagePath
+        cache: false
 
-//        Connections {
-//            target: ccounter
-//            onImgProcessed: crPic.source = imagePath;
-//            onImgProcessed: crPic.update();
-//        }
+        MouseArea {
+            id: crpMouseArea
+            anchors.fill: parent
+            onClicked: ccounter.findCircles(imagePath)
+        }
 
-        Button {
-            id: crBut
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 10
-
-            onClicked: imagePath = ccounter.findCircles(imagePath);
+        Connections {
+            target: ccounter
+            onImgProcessed: {
+                crPic.source = "";
+                crPic.source = imagePath;
+            }
         }
     }
 }

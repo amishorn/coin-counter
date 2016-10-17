@@ -16,8 +16,8 @@ public:
 
 //    QString imgURI();
 //    Q_INVOKABLE QString getNewImgURI();
-    Q_INVOKABLE QString findCircles(QString imgPath);
-    Q_INVOKABLE void makePath();
+    Q_INVOKABLE void findCircles(QString imgPath);
+    Q_INVOKABLE void deleteImg(QString imgPath);
 
 private:
 //    QString _imgURI;

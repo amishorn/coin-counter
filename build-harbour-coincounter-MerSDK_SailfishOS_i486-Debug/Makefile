@@ -18,7 +18,7 @@ CXXFLAGS      = -pipe -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -f
 INCPATH       = -I/usr/share/qt5/mkspecs/linux-g++ -I../harbour-coincounter -I../harbour-coincounter/ocv-inst-486/include -I/usr/include/sailfishapp -I/usr/include/mdeclarativecache5 -I/usr/include/qt5 -I/usr/include/qt5/QtQuick -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtQml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I. -I.
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/usr/share/harbour-coincounter/lib
-LIBS          = $(SUBLIBS) -L/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/ -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio -pie -rdynamic -L/usr/lib/ -lsailfishapp -lmdeclarativecache5 -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGLESv2 -lpthread 
+LIBS          = $(SUBLIBS) -L/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio -pie -rdynamic -L/usr/lib/ -lsailfishapp -lmdeclarativecache5 -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGLESv2 -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/qt5/bin/qmake

@@ -37,22 +37,21 @@ import Sailfish.Media 1.0
 Page {
     id: camPage
 
-    property string imagePath: ""
-
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
+        id: cSFlick
         anchors.fill: parent
 
         Camera {
-            id: cCamera
+            id: csfCamera
             flash.mode: Camera.FlashAuto
             captureMode: Camera.CaptureStillImage
             focus.focusMode: Camera.FocusContinuous
             imageCapture {
-                resolution: "3264x1840"
+                resolution: "3200x1800" //JP "3264x1840"
                 onImageSaved: {
                     console.log("image Saved called");
-//                    postCapture();
+                    postCapture();
                 }
                 onCaptureFailed: {
                     console.error("error: " + cCamera.imageCapture.errorString);
@@ -62,51 +61,34 @@ Page {
                 }
             }
             onError: {
-                console.error("error: " + cCamera.errorString);
+                console.error("error: " + csfCamera.errorString);
             }
         }
 
         GStreamerVideoOutput {
-            id: cVideoPreview
+            id: csfVideoPreview
             anchors.centerIn: parent
-            source: cCamera
-//            MouseArea {
-//                anchors.fill: parent
-//                onClicked: {
-//                    console.log("capturing");
-//                    messageLabel.text = "";
-//                    camera.imageCapture.captureToLocation(imagePath);
-//                }
-//            }
+            source: csfCamera
         }
 
-        Button {
-            id: cCaptureButton
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "Capture"
+        MouseArea {
+            id: csfMouseArea
+            anchors.fill: parent
             onClicked: {
-                console.log("capturing");
-//                imagePath = ccounter.getNewImgURI();
-//                cCamera.imageCapture.captureToLocation(imagePath);
-
-
-                postCapture();
-//                cCamera.imageCapture.capture();
+                console.log("mouse area clicked...")
+//                postCapture();
+                csfCamera.imageCapture.capture();
             }
         }
-
     }
 
     function postCapture(){
         console.log("image saved");
-//        imagePath = cCamera.imageCapture.capturedImagePath;
-        imagePath = "/home/nemo/Pictures/testImg.jpg";
 
-        console.log(imagePath);
         var recPage = pageStack.push(Qt.resolvedUrl("CoinRecPage.qml"));
-        recPage.imagePath = imagePath;
+        recPage.imagePath = csfCamera.imageCapture.capturedImagePath;
+        console.log(recPage.imagePath);
+//        recPage.imagePath = "/home/nemo/Pictures/testImgII.jpg";
     }
 }
 

@@ -11,7 +11,7 @@
 
 #define M_PI 3.14159265358979323846
 #define MIN_AREA 100.00     // needs to be high enough to get rid of things that aren't coins
-#define MAX_TOL 1000.00      // max tolerance between estimated and actual ellipse area
+#define MAX_TOL  100.00      // max tolerance between estimated and actual ellipse area
 
 CCounter::CCounter(QObject *parent) : QObject(parent) {
 
@@ -31,62 +31,49 @@ CCounter::CCounter(QObject *parent) : QObject(parent) {
 //    return _imgURI;
 //}
 
-QString CCounter::findCircles(QString imgPath) {
-
-    int cnt = 0;
+void CCounter::findCircles(QString imgPath) {
 
     // load image
-    cv::Mat img = cv::imread(imgPath.toLocal8Bit().constData(), CV_LOAD_IMAGE_GRAYSCALE);
-    cv::Mat editImg = img;
-    cv::Mat contImg = cv::Mat::zeros(editImg.rows, editImg.cols, CV_8UC3);
+//    cv::Mat cimg = cv::imread(imgPath.toLocal8Bit().constData(), CV_LOAD_IMAGE_COLOR);
+    cv::Mat editImg;
+    cv::Mat tM(2,2, CV_8UC3, cv::Scalar(0,0,255));
+    cv::cvtColor(tM, editImg, CV_RGB2GRAY);
+
     std::vector<cv::Vec4i> hirarchy;
     std::vector<std::vector<cv::Point> > contour;
-    cv::threshold(editImg, editImg, 1, 255, CV_THRESH_OTSU);
+//    cv::threshold(editImg, editImg, 1, 255, CV_THRESH_OTSU);
 
     // Ensure that foreground (coins) is white and background is black
-    cv::bitwise_xor(editImg, cv::Scalar(255,0,0), editImg);
-    cv::dilate(editImg, editImg, cv::Mat(), cv::Point(-1,-1), 2);
+//    cv::bitwise_xor(editImg, cv::Scalar(255,0,0), editImg);
+//    cv::dilate(editImg, editImg, cv::Mat(), cv::Point(-1,-1), 2);
 
     qDebug() << "find contours...";
-    cv::findContours(editImg, contour, hirarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+//    cv::findContours(editImg, contour, hirarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
 
     qDebug() << "enter forloop and draw found contours";
-    for(std::vector<std::vector<cv::Point> >::iterator it = contour.begin(); it != contour.end(); it++)
-    {
-        double act_area = fabs(cv::contourArea(*it));
-        if(act_area < MIN_AREA)
-            continue;
+//    for(std::vector<std::vector<cv::Point> >::iterator it = contour.begin(); it != contour.end(); it++)
+//    {
+//        if ((*it).size() < 6)
+//            continue;
 
-        cv::Rect rect = ((CvContour*)&(*it))->rect;
-        int A = rect.width / 2;
-        int B = rect.height / 2;
-        double est_area = M_PI * A * B;
+//        cv::RotatedRect rotRec = cv::fitEllipse(*it);
 
-        double error = fabs(act_area - est_area);
-        if (error > MAX_TOL)
-            continue;
+//        if(rotRec.size.area() < MIN_AREA)
+//            continue;
 
-        qDebug() << "set color and draw contour";
-        cv::Scalar color(188, 255, 255);
-        cv::drawContours(contImg, contour, cnt, color, CV_FILLED);
-    }
+//        qDebug() << "\nx: " << rotRec.center.x  << "\ty: " << rotRec.center.y;
+//        qDebug() << "set color and draw contour \n";
+//        cv::Scalar color(std::rand() % 255, std::rand() % 255, std::rand() % 255);
+//        ellipse(cimg, rotRec, color, 2, cv::LINE_AA);
+//    }
 
     // save image with found circles
     qDebug() << "save image with found circles";
-    imgPath = "/home/nemo/Pictures/testImg_edit.jpg";
-    cv::imwrite(imgPath.toLocal8Bit().constData(), contImg);
+//    cv::imwrite(imgPath.toLocal8Bit().constData(), cimg);
 
     emit imgProcessed();
-
-    return imgPath;
 }
 
-void CCounter::makePath() {
-
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
-    if(!dir.exists())
-        QDir().mkdir(dir.absolutePath());
-
-    qDebug() << dir.absolutePath();
+void CCounter::deleteImg(QString imgPath) {
+    QFile::remove(imgPath);
 }
-

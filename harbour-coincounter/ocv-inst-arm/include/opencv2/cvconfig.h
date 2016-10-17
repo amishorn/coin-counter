@@ -20,7 +20,7 @@
 /* #undef HAVE_CAMV4L */
 
 /* V4L2 capturing support */
-#define HAVE_CAMV4L2
+/* #undef HAVE_CAMV4L2 */
 
 /* Carbon windowing environment */
 /* #undef HAVE_CARBON */
@@ -84,7 +84,7 @@
 /* #undef HAVE_GSTREAMER */
 
 /* GTK+ 2.0 Thread support */
-#define HAVE_GTHREAD
+/* #undef HAVE_GTHREAD */
 
 /* GTK+ 2.x toolkit */
 /* #undef HAVE_GTK */
@@ -127,7 +127,7 @@
 /* #undef HAVE_NVCUVENC */
 
 /* OpenCL Support */
-#define HAVE_OPENCL
+/* #undef HAVE_OPENCL */
 /* #undef HAVE_OPENCL_STATIC */
 /* #undef HAVE_OPENCL_SVM */
 
@@ -215,3 +215,6 @@
 
 /* Library was compiled with functions instrumentation */
 /* #undef ENABLE_INSTRUMENTATION */
+
+/* OpenVX */
+/* #undef HAVE_OPENVX */

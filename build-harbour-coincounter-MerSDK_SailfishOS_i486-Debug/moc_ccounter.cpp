@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_CCounter_t {
     QByteArrayData data[6];
-    char stringdata[53];
+    char stringdata[54];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,10 +34,10 @@ QT_MOC_LITERAL(1, 9, 12),
 QT_MOC_LITERAL(2, 22, 0),
 QT_MOC_LITERAL(3, 23, 11),
 QT_MOC_LITERAL(4, 35, 7),
-QT_MOC_LITERAL(5, 43, 8)
+QT_MOC_LITERAL(5, 43, 9)
     },
     "CCounter\0imgProcessed\0\0findCircles\0"
-    "imgPath\0makePath\0"
+    "imgPath\0deleteImg\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,14 +59,14 @@ static const uint qt_meta_data_CCounter[] = {
 
  // methods: name, argc, parameters, tag, flags
        3,    1,   30,    2, 0x02,
-       5,    0,   33,    2, 0x02,
+       5,    1,   33,    2, 0x02,
 
  // signals: parameters
     QMetaType::Void,
 
  // methods: parameters
-    QMetaType::QString, QMetaType::QString,    4,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    4,
+    QMetaType::Void, QMetaType::QString,    4,
 
        0        // eod
 };
@@ -77,9 +77,8 @@ void CCounter::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         CCounter *_t = static_cast<CCounter *>(_o);
         switch (_id) {
         case 0: _t->imgProcessed(); break;
-        case 1: { QString _r = _t->findCircles((*reinterpret_cast< QString(*)>(_a[1])));
-            if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = _r; }  break;
-        case 2: _t->makePath(); break;
+        case 1: _t->findCircles((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->deleteImg((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

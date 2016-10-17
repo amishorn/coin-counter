@@ -51,17 +51,20 @@ CONFIG(release,debug|release){
 OCV_PATH = ocv-inst-arm
 }
 
+QMAKE_LFLAGS += -Wl,-shared
+
 INCLUDEPATH += $$OCV_PATH/include
 
 # Note: -lbla -> libbla.a/so is standard linker behaviour
 #       you're not specifying the exact file to link, you're
 #       saying "resolve this name as a library please",
 #       you can influence where it looks with -L
-LIBS += -L$$PWD/$$OCV_PATH/lib/ -lopencv_core \
--lopencv_imgproc \
--lopencv_highgui \
--lopencv_imgcodecs \
--lopencv_videoio
+LIBS += -L$$PWD/$$OCV_PATH/lib
+#-lopencv_core
+#-lopencv_imgproc \
+#-lopencv_highgui \
+#-lopencv_imgcodecs \
+#-lopencv_videoio
 
 lib.files += $$OCV_PATH/lib/libopencv_core.so.3.1 \
 $$OCV_PATH/lib/libopencv_imgproc.so.3.1 \
