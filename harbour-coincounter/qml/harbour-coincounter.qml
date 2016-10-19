@@ -36,7 +36,7 @@ ApplicationWindow
 {
     initialPage: Component { CamPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
-    allowedOrientations: Orientation.All
+    allowedOrientations: Orientation.Portrait
     _defaultPageOrientations: Orientation.All
 }
 

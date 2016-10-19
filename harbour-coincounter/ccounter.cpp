@@ -34,42 +34,42 @@ CCounter::CCounter(QObject *parent) : QObject(parent) {
 void CCounter::findCircles(QString imgPath) {
 
     // load image
-//    cv::Mat cimg = cv::imread(imgPath.toLocal8Bit().constData(), CV_LOAD_IMAGE_COLOR);
+    cv::Mat cimg = cv::imread(imgPath.toLocal8Bit().constData(), CV_LOAD_IMAGE_COLOR);
     cv::Mat editImg;
-    cv::Mat tM(2,2, CV_8UC3, cv::Scalar(0,0,255));
-    cv::cvtColor(tM, editImg, CV_RGB2GRAY);
+//    cv::Mat tM(2,2, CV_8UC3, cv::Scalar(0,0,255));
+    cv::cvtColor(cimg, editImg, CV_RGB2GRAY);
 
     std::vector<cv::Vec4i> hirarchy;
     std::vector<std::vector<cv::Point> > contour;
-//    cv::threshold(editImg, editImg, 1, 255, CV_THRESH_OTSU);
+    cv::threshold(editImg, editImg, 1, 255, CV_THRESH_OTSU);
 
     // Ensure that foreground (coins) is white and background is black
-//    cv::bitwise_xor(editImg, cv::Scalar(255,0,0), editImg);
-//    cv::dilate(editImg, editImg, cv::Mat(), cv::Point(-1,-1), 2);
+    cv::bitwise_xor(editImg, cv::Scalar(255,0,0), editImg);
+    cv::dilate(editImg, editImg, cv::Mat(), cv::Point(-1,-1), 2);
 
     qDebug() << "find contours...";
-//    cv::findContours(editImg, contour, hirarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+    cv::findContours(editImg, contour, hirarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
 
     qDebug() << "enter forloop and draw found contours";
-//    for(std::vector<std::vector<cv::Point> >::iterator it = contour.begin(); it != contour.end(); it++)
-//    {
-//        if ((*it).size() < 6)
-//            continue;
+    for(std::vector<std::vector<cv::Point> >::iterator it = contour.begin(); it != contour.end(); it++)
+    {
+        if ((*it).size() < 6)
+            continue;
 
-//        cv::RotatedRect rotRec = cv::fitEllipse(*it);
+        cv::RotatedRect rotRec = cv::fitEllipse(*it);
 
-//        if(rotRec.size.area() < MIN_AREA)
-//            continue;
+        if(rotRec.size.area() < MIN_AREA)
+            continue;
 
-//        qDebug() << "\nx: " << rotRec.center.x  << "\ty: " << rotRec.center.y;
-//        qDebug() << "set color and draw contour \n";
-//        cv::Scalar color(std::rand() % 255, std::rand() % 255, std::rand() % 255);
-//        ellipse(cimg, rotRec, color, 2, cv::LINE_AA);
-//    }
+        qDebug() << "\nx: " << rotRec.center.x  << "\ty: " << rotRec.center.y;
+        qDebug() << "set color and draw contour \n";
+        cv::Scalar color(std::rand() % 255, std::rand() % 255, std::rand() % 255);
+        ellipse(cimg, rotRec, color, 2, cv::LINE_AA);
+    }
 
     // save image with found circles
     qDebug() << "save image with found circles";
-//    cv::imwrite(imgPath.toLocal8Bit().constData(), cimg);
+    cv::imwrite(imgPath.toLocal8Bit().constData(), cimg);
 
     emit imgProcessed();
 }

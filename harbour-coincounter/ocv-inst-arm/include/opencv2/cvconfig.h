@@ -1,5 +1,5 @@
 /* OpenCV compiled as static or dynamic libs */
-#define BUILD_SHARED_LIBS
+/* #undef BUILD_SHARED_LIBS */
 
 /* Compile for 'real' NVIDIA GPU architectures */
 #define CUDA_ARCH_BIN ""
@@ -211,7 +211,7 @@
 /* #undef HAVE_LAPACK_MKL */
 
 /* FP16 */
-/* #undef HAVE_FP16 */
+#define HAVE_FP16
 
 /* Library was compiled with functions instrumentation */
 /* #undef ENABLE_INSTRUMENTATION */

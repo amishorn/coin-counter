@@ -47,6 +47,7 @@ Page {
             flash.mode: Camera.FlashAuto
             captureMode: Camera.CaptureStillImage
             focus.focusMode: Camera.FocusContinuous
+            opticalZoom: 0
             imageCapture {
                 resolution: "3200x1800" //JP "3264x1840"
                 onImageSaved: {

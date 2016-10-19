@@ -45,6 +45,7 @@ Page {
         fillMode: Image.PreserveAspectFit
         source: imagePath
         cache: false
+//        autoTransform: true
 
         MouseArea {
             id: crpMouseArea
