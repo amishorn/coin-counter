@@ -30,12 +30,28 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import QtMultimedia 5.0
-import Sailfish.Media 1.0
+import Sailfish.Media 1.0       // used for GStreamer
+//import com.jolla.camera 1.0     // component not installed -> hence QtMultimedia
+import QtMultimedia 5.4         // used for Camera
 
 
 Page {
     id: camPage
+
+    property bool debug: false
+    property bool vFVis: true
+    property QtObject viewfinder
+    readonly property string resolution: "3200x1800" //JP "3264x1840"
+
+    readonly property int viewfinderOrientation: {
+            var rotation = 0
+            switch (camPage.orientation) {
+            case Orientation.Landscape: rotation = 90; break;
+            case Orientation.PortraitInverted: rotation = 180; break;
+            case Orientation.LandscapeInverted: rotation = 270; break;
+            }
+            return (720 + csfCamera.orientation + rotation) % 360
+        }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
@@ -47,15 +63,20 @@ Page {
             flash.mode: Camera.FlashAuto
             captureMode: Camera.CaptureStillImage
             focus.focusMode: Camera.FocusContinuous
-            opticalZoom: 0
+
+            metaData {
+                orientation: viewfinderOrientation
+            }
+
             imageCapture {
-                resolution: "3200x1800" //JP "3264x1840"
+                resolution: camPage.resolution
                 onImageSaved: {
                     console.log("image Saved called");
                     postCapture();
+                    console.log("function end")
                 }
                 onCaptureFailed: {
-                    console.error("error: " + cCamera.imageCapture.errorString);
+                    console.error("error: " + csfCamera.imageCapture.errorString);
                 }
                 onImageCaptured: { // does not work: missing SailfishOS feature
                     console.log("Image captured");
@@ -66,10 +87,16 @@ Page {
             }
         }
 
-        GStreamerVideoOutput {
-            id: csfVideoPreview
-            anchors.centerIn: parent
-            source: csfCamera
+        Binding {
+            target: camPage.viewfinder
+            property: "source"
+            value: csfCamera
+        }
+
+        Binding {
+            target: camPage.viewfinder
+            property: "visible"
+            value: camPage.vFVis
         }
 
         MouseArea {
@@ -77,19 +104,22 @@ Page {
             anchors.fill: parent
             onClicked: {
                 console.log("mouse area clicked...")
-//                postCapture();
-                csfCamera.imageCapture.capture();
+                if(debug) postCapture();
+                else csfCamera.imageCapture.capture();
             }
         }
     }
 
     function postCapture(){
         console.log("image saved");
-
+        camPage.vFVis = false
         var recPage = pageStack.push(Qt.resolvedUrl("CoinRecPage.qml"));
-        recPage.imagePath = csfCamera.imageCapture.capturedImagePath;
+        recPage.imagePath = !debug ? csfCamera.imageCapture.capturedImagePath : "/home/nemo/Pictures/testImgII.jpg";
         console.log(recPage.imagePath);
-//        recPage.imagePath = "/home/nemo/Pictures/testImgII.jpg";
+        onPageClosed: {
+            camPage.vFVis = true
+            console.log("rec page was closed, I guess...")
+        }
     }
 }
 

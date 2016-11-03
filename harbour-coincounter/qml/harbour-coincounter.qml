@@ -30,14 +30,26 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Sailfish.Media 1.0       // used for GStreamer
 import "pages"
 
 ApplicationWindow
 {
-    initialPage: Component { CamPage { } }
+    id: window
+
+    initialPage: Component { CamPage { id: wCPage; viewfinder: wVPreview} }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
-    allowedOrientations: Orientation.Portrait
+    allowedOrientations: Orientation.All
     _defaultPageOrientations: Orientation.All
+
+    GStreamerVideoOutput {
+        id: wVPreview
+        z: -1
+        width: window.width
+        height: window.height
+        anchors.centerIn: parent
+        focus: visible
+    }
 }
 
 

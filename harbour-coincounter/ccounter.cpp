@@ -10,8 +10,7 @@
 #include <QDebug>
 
 #define M_PI 3.14159265358979323846
-#define MIN_AREA 100.00     // needs to be high enough to get rid of things that aren't coins
-#define MAX_TOL  100.00      // max tolerance between estimated and actual ellipse area
+#define MIN_AREA 300.00     // needs to be high enough to get rid of things that aren't coins
 
 CCounter::CCounter(QObject *parent) : QObject(parent) {
 
@@ -64,7 +63,7 @@ void CCounter::findCircles(QString imgPath) {
         qDebug() << "\nx: " << rotRec.center.x  << "\ty: " << rotRec.center.y;
         qDebug() << "set color and draw contour \n";
         cv::Scalar color(std::rand() % 255, std::rand() % 255, std::rand() % 255);
-        ellipse(cimg, rotRec, color, 2, cv::LINE_AA);
+        ellipse(cimg, rotRec, color, 4, cv::LINE_AA);
     }
 
     // save image with found circles

@@ -30,38 +30,66 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Sailfish.Gallery 1.0
 
 
 Page {
     id: coinRecPage
 
     property string imagePath: ""
+    signal pageClosed
 
-    on_NavigationChanged: ccounter.deleteImg(imagePath);
+    on_NavigationChanged: {
+        ccounter.deleteImg(imagePath)
+        pageClosed()
+    }
 
-    Image {
-        id: crPic
+
+    ImageViewer {
+        id: cIV
         anchors.fill: parent
-        fillMode: Image.PreserveAspectFit
         source: imagePath
-        cache: false
-//        autoTransform: true
+        enableZoom: true
 
-        MouseArea {
-            id: crpMouseArea
-            anchors.fill: parent
-            onClicked: ccounter.findCircles(imagePath)
-        }
+//        Image {
+//            id: ciImg
+//            anchors.fill: parent
+////            fillMode: Image.PreserveAspectFit
+//            source: imagePath
+//            cache: false
+//            asynchronous: true
 
-        Connections {
-            target: ccounter
-            onImgProcessed: {
-                crPic.source = "";
-                crPic.source = imagePath;
+            MouseArea {
+                id: ciiMouseArea
+                anchors.fill: parent
+                onClicked: {
+                    console.log("searches circles...")
+                    ccounter.findCircles(imagePath)
+                }
             }
+
+            Connections {
+                id: ciiCon
+                target: ccounter
+                onImgProcessed: {
+                    cIV.source = ""
+                    cIV.source = imagePath
+                    ciiMouseArea.enabled = false
+//                    ciiPA.enabled = true
+                }
+            }
+
+//            PinchArea {
+//                id: ciiPA
+//                enabled: false
+//                anchors.fill: parent
+//                pinch.target: parent
+//                pinch.minimumScale: 1
+//                pinch.maximumScale: 5
+//            }
         }
     }
-}
+//}
 
 
 

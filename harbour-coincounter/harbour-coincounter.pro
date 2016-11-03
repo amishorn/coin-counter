@@ -45,7 +45,7 @@ DISTFILES += \
     qml/pages/CamPage.qml
 
 CONFIG(debug,debug|release){
-OCV_PATH = ocv-inst-486
+OCV_PATH = ocv-inst-i486
 }
 CONFIG(release,debug|release){
 OCV_PATH = ocv-inst-arm

@@ -15,10 +15,10 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -m32 -msse -msse2 -march=i686 -mfpmath=sse -mtune=generic -fno-omit-frame-pointer -fasynchronous-unwind-tables -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -m32 -msse -msse2 -march=i686 -mfpmath=sse -mtune=generic -fno-omit-frame-pointer -fasynchronous-unwind-tables -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I/usr/share/qt5/mkspecs/linux-g++ -I../harbour-coincounter -I../harbour-coincounter/ocv-inst-486/include -I/usr/include/sailfishapp -I/usr/include/mdeclarativecache5 -I/usr/include/qt5 -I/usr/include/qt5/QtQuick -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtQml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I. -I.
+INCPATH       = -I/usr/share/qt5/mkspecs/linux-g++ -I../harbour-coincounter -I../harbour-coincounter/ocv-inst-i486/include -I/usr/include/sailfishapp -I/usr/include/mdeclarativecache5 -I/usr/include/qt5 -I/usr/include/qt5/QtQuick -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtQml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I. -I.
 LINK          = g++
-LFLAGS        = -Wl,-rpath,/usr/share/harbour-coincounter/lib
-LIBS          = $(SUBLIBS) -L/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio -pie -rdynamic -L/usr/lib/ -lsailfishapp -lmdeclarativecache5 -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGLESv2 -lpthread 
+LFLAGS        = -Wl,-lc -Wl,-lz -Wl,-rpath,/usr/share/harbour-coincounter/lib
+LIBS          = $(SUBLIBS) -L/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib -lopencv_videostab -lopencv_superres -lopencv_stitching -lopencv_video -lopencv_objdetect -lopencv_ml -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_flann -lopencv_imgcodecs -lopencv_imgproc -llibpng -lopencv_core -lopencv_photo -lopencv_shape -lopencv_videoio -L/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/share/OpenCV/3rdparty/lib -ltegra_hal -llibwebp -lIlmImf -llibjasper -llibjpeg -llibtiff -pie -rdynamic -L/usr/lib/ -lsailfishapp -lmdeclarativecache5 -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGLESv2 -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/qt5/bin/qmake
@@ -79,8 +79,6 @@ DIST          = ../harbour-coincounter/qml/pages/CoinRecPage.qml \
 		/usr/share/qt5/mkspecs/modules/qt_lib_feedback_private.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_gui.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_gui_private.pri \
-		/usr/share/qt5/mkspecs/modules/qt_lib_help.pri \
-		/usr/share/qt5/mkspecs/modules/qt_lib_help_private.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_location.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_location_private.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_multimedia.pri \
@@ -210,8 +208,6 @@ Makefile: ../harbour-coincounter/harbour-coincounter.pro /usr/share/qt5/mkspecs/
 		/usr/share/qt5/mkspecs/modules/qt_lib_feedback_private.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_gui.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_gui_private.pri \
-		/usr/share/qt5/mkspecs/modules/qt_lib_help.pri \
-		/usr/share/qt5/mkspecs/modules/qt_lib_help_private.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_location.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_location_private.pri \
 		/usr/share/qt5/mkspecs/modules/qt_lib_multimedia.pri \
@@ -314,8 +310,6 @@ Makefile: ../harbour-coincounter/harbour-coincounter.pro /usr/share/qt5/mkspecs/
 /usr/share/qt5/mkspecs/modules/qt_lib_feedback_private.pri:
 /usr/share/qt5/mkspecs/modules/qt_lib_gui.pri:
 /usr/share/qt5/mkspecs/modules/qt_lib_gui_private.pri:
-/usr/share/qt5/mkspecs/modules/qt_lib_help.pri:
-/usr/share/qt5/mkspecs/modules/qt_lib_help_private.pri:
 /usr/share/qt5/mkspecs/modules/qt_lib_location.pri:
 /usr/share/qt5/mkspecs/modules/qt_lib_location_private.pri:
 /usr/share/qt5/mkspecs/modules/qt_lib_multimedia.pri:
@@ -1038,126 +1032,126 @@ ccounter.o: ../harbour-coincounter/ccounter.cpp ../harbour-coincounter/ccounter.
 		/usr/include/qt5/QtGui/qpaintdevice.h \
 		/usr/include/qt5/QtGui/qrgb.h \
 		/usr/include/qt5/QtGui/qpixelformat.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/opencv.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/opencv_modules.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/cvdef.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/hal/interface.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/version.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/base.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/cvstd.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/ptr.inl.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/neon_utils.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/traits.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/matx.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/saturate.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/fast_math.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/types.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/mat.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/bufferpool.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/mat.inl.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/persistence.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/operations.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/cvstd.inl.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/utility.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/core_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/types_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/optim.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/calib3d.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/features2d.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/miniflann.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/defines.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/config.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/affine.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/calib3d/calib3d_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/flann_base.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/general.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/matrix.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/params.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/any.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/saving.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/nn_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/result_set.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/all_indices.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/kdtree_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/dynamic_bitset.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/dist.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/heap.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/allocator.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/random.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/kdtree_single_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/kmeans_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/logger.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/composite_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/linear_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/hierarchical_clustering_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/lsh_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/lsh_table.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/autotuned_index.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/ground_truth.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/index_testing.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/timer.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/flann/sampling.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/highgui.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/imgcodecs.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videoio.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/highgui/highgui_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/imgproc/imgproc_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/imgproc/types_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/imgcodecs/imgcodecs_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videoio/videoio_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/imgproc.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/ml.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/objdetect.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/objdetect/detection_based_tracker.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/objdetect/objdetect_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/photo.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/photo/photo_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/shape.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/shape/emdL1.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/shape/shape_transformer.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/shape/hist_cost.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/shape/shape_distance.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/warpers.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/warpers.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/cuda.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/cuda_types.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/cuda.inl.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/warpers_inl.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/matchers.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/motion_estimators.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/util.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/util_inl.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/camera.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/exposure_compensate.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/seam_finders.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/stitching/detail/blenders.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/superres.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/superres/optical_flow.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/video.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/video/tracking.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/video/background_segm.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/video/tracking_c.h \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/stabilizer.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/global_motion.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/optical_flow.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/motion_core.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/outlier_rejection.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/motion_stabilizing.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/frame_source.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/log.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/inpainting.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/fast_marching.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/fast_marching_inl.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/deblurring.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/wobble_suppression.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/videostab/ring_buffer.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/core/core.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/imgproc/imgproc.hpp \
-		../harbour-coincounter/ocv-inst-486/include/opencv2/highgui/highgui.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/opencv.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/opencv_modules.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/cvdef.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/hal/interface.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/version.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/base.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/cvstd.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/ptr.inl.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/neon_utils.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/traits.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/matx.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/saturate.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/fast_math.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/types.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/mat.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/bufferpool.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/mat.inl.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/persistence.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/operations.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/cvstd.inl.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/utility.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/core_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/types_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/optim.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/calib3d.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/features2d.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/miniflann.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/defines.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/config.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/affine.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/calib3d/calib3d_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/flann_base.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/general.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/matrix.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/params.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/any.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/saving.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/nn_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/result_set.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/all_indices.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/kdtree_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/dynamic_bitset.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/dist.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/heap.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/allocator.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/random.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/kdtree_single_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/kmeans_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/logger.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/composite_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/linear_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/hierarchical_clustering_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/lsh_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/lsh_table.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/autotuned_index.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/ground_truth.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/index_testing.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/timer.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/flann/sampling.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/highgui.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/imgcodecs.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videoio.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/highgui/highgui_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/imgproc/imgproc_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/imgproc/types_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/imgcodecs/imgcodecs_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videoio/videoio_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/imgproc.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/ml.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/objdetect.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/objdetect/detection_based_tracker.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/objdetect/objdetect_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/photo.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/photo/photo_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/shape.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/shape/emdL1.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/shape/shape_transformer.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/shape/hist_cost.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/shape/shape_distance.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/warpers.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/warpers.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/cuda.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/cuda_types.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/cuda.inl.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/warpers_inl.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/matchers.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/motion_estimators.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/util.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/util_inl.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/camera.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/exposure_compensate.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/seam_finders.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/stitching/detail/blenders.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/superres.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/superres/optical_flow.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/video.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/video/tracking.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/video/background_segm.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/video/tracking_c.h \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/stabilizer.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/global_motion.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/optical_flow.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/motion_core.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/outlier_rejection.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/motion_stabilizing.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/frame_source.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/log.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/inpainting.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/fast_marching.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/fast_marching_inl.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/deblurring.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/wobble_suppression.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/videostab/ring_buffer.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/core/core.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/imgproc/imgproc.hpp \
+		../harbour-coincounter/ocv-inst-i486/include/opencv2/highgui/highgui.hpp \
 		/usr/include/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ccounter.o ../harbour-coincounter/ccounter.cpp
 
@@ -1168,25 +1162,61 @@ moc_ccounter.o: moc_ccounter.cpp
 
 install_lib: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib || mkdir -p $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_core.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_imgproc.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_highgui.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_imgcodecs.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-486/lib/libopencv_videoio.so.3.1 $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_core.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_imgproc.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_highgui.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_imgcodecs.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_videoio.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_calib3d.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_features2d.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_flann.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_ml.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_objdetect.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_photo.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_shape.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_stitching.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_superres.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_video.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/lib/libopencv_videostab.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/share/OpenCV/3rdparty/lib/libtegra_hal.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/share/OpenCV/3rdparty/lib/liblibpng.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/share/OpenCV/3rdparty/lib/liblibjpeg.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/share/OpenCV/3rdparty/lib/liblibjasper.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/share/OpenCV/3rdparty/lib/libIlmImf.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/share/OpenCV/3rdparty/lib/liblibtiff.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/ocv-inst-i486/share/OpenCV/3rdparty/lib/liblibwebp.a $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/
 
 uninstall_lib: FORCE
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_videoio.so.3.1
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_imgcodecs.so.3.1
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_highgui.so.3.1
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_imgproc.so.3.1
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_core.so.3.1
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/liblibwebp.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/liblibtiff.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libIlmImf.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/liblibjasper.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/liblibjpeg.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/liblibpng.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libtegra_hal.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_videostab.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_video.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_superres.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_stitching.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_shape.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_photo.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_objdetect.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_ml.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_flann.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_features2d.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_calib3d.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_videoio.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_imgcodecs.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_highgui.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_imgproc.a
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/libopencv_core.a
 	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/harbour-coincounter/lib/ 
 
 
 install_qm: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/harbour-coincounter/translations || mkdir -p $(INSTALL_ROOT)/usr/share/harbour-coincounter/translations
 	lupdate -noobsolete "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/src" "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/qml" -ts "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/translations/harbour-coincounter.ts" "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/translations/harbour-coincounter-de.ts" && mkdir -p translations && [ "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/build-harbour-coincounter-MerSDK_SailfishOS_i486-Debug" != "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter" -a 1 -eq 1 ] && cp -af "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/translations/harbour-coincounter-de.ts" "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/build-harbour-coincounter-MerSDK_SailfishOS_i486-Debug/translations" || : ; [ 1 -eq 1 ] && lrelease -nounfinished "/home/mersdk/share/Documents/SFOS_Apps/coinCounter/build-harbour-coincounter-MerSDK_SailfishOS_i486-Debug/translations/harbour-coincounter-de.ts" || :
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/build-harbour-coincounter-MerSDK_SailfishOS_i486-Debug/translations/harbour-coincounter-de.qm $(INSTALL_ROOT)/usr/share/harbour-coincounter/translations/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/build-harbour-coincounter-MerSDK_SailfishOS_i486-Debug/translations/harbour-coincounter-de.qm $(INSTALL_ROOT)/usr/share/harbour-coincounter/translations/
 
 uninstall_qm: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-coincounter/translations/harbour-coincounter-de.qm
@@ -1213,7 +1243,7 @@ uninstall_target: FORCE
 
 install_desktop: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/applications || mkdir -p $(INSTALL_ROOT)/usr/share/applications
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/harbour-coincounter.desktop $(INSTALL_ROOT)/usr/share/applications/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/harbour-coincounter.desktop $(INSTALL_ROOT)/usr/share/applications/
 
 uninstall_desktop: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/applications/harbour-coincounter.desktop
@@ -1222,7 +1252,7 @@ uninstall_desktop: FORCE
 
 install_icon86x86: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/icons/hicolor/86x86/apps || mkdir -p $(INSTALL_ROOT)/usr/share/icons/hicolor/86x86/apps
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/icons/86x86/harbour-coincounter.png $(INSTALL_ROOT)/usr/share/icons/hicolor/86x86/apps/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/icons/86x86/harbour-coincounter.png $(INSTALL_ROOT)/usr/share/icons/hicolor/86x86/apps/
 
 uninstall_icon86x86: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/icons/hicolor/86x86/apps/harbour-coincounter.png
@@ -1231,7 +1261,7 @@ uninstall_icon86x86: FORCE
 
 install_icon108x108: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/icons/hicolor/108x108/apps || mkdir -p $(INSTALL_ROOT)/usr/share/icons/hicolor/108x108/apps
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/icons/108x108/harbour-coincounter.png $(INSTALL_ROOT)/usr/share/icons/hicolor/108x108/apps/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/icons/108x108/harbour-coincounter.png $(INSTALL_ROOT)/usr/share/icons/hicolor/108x108/apps/
 
 uninstall_icon108x108: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/icons/hicolor/108x108/apps/harbour-coincounter.png
@@ -1240,7 +1270,7 @@ uninstall_icon108x108: FORCE
 
 install_icon128x128: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/icons/hicolor/128x128/apps || mkdir -p $(INSTALL_ROOT)/usr/share/icons/hicolor/128x128/apps
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/icons/128x128/harbour-coincounter.png $(INSTALL_ROOT)/usr/share/icons/hicolor/128x128/apps/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/icons/128x128/harbour-coincounter.png $(INSTALL_ROOT)/usr/share/icons/hicolor/128x128/apps/
 
 uninstall_icon128x128: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/icons/hicolor/128x128/apps/harbour-coincounter.png
@@ -1249,7 +1279,7 @@ uninstall_icon128x128: FORCE
 
 install_icon256x256: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/icons/hicolor/256x256/apps || mkdir -p $(INSTALL_ROOT)/usr/share/icons/hicolor/256x256/apps
-	-$(INSTALL_PROGRAM) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/icons/256x256/harbour-coincounter.png $(INSTALL_ROOT)/usr/share/icons/hicolor/256x256/apps/
+	-$(INSTALL_FILE) /home/mersdk/share/Documents/SFOS_Apps/coinCounter/harbour-coincounter/icons/256x256/harbour-coincounter.png $(INSTALL_ROOT)/usr/share/icons/hicolor/256x256/apps/
 
 uninstall_icon256x256: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/icons/hicolor/256x256/apps/harbour-coincounter.png
